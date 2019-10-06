@@ -1,0 +1,44 @@
+{
+    "name": "mightymedia/mfv",
+    "description": "Generic client-side form validator written in JavaScript",
+    "version": "0.1.0",
+    "readme": "README.md",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bas van den Wijngaard",
+            "email": "bas@mightymedia.nl",
+            "homepage": "https://basvandenwijngaard.nl",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "mouf/nodejs-installer": "~1.0.13"
+    },
+    "require-dev": {
+
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "./build/gulp-install.sh"
+        ],
+        "post-update-cmd": [
+            "./build/gulp-install.sh"
+        ]
+    },
+    "extra": {
+        "mouf": {
+            "nodejs": {
+                "version": "~10.15.3",
+                "targetDir": "vendor/nodejs/nodejs",
+                "forceLocal": false
+            }
+        }
+    }
+}

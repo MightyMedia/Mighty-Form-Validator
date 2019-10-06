@@ -1,0 +1,50 @@
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+}
+
+
+html {
+    // Add cross-browser antialiasing
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+
+    // Set the base font size for rem sizes
+    font-size: 62.5%;
+    font-weight: 400;
+    height: 100%;
+
+    overflow-x: hidden;
+    position: relative;
+
+    // Other base styling
+    text-rendering: auto;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+
+    font-size: 1.6rem;
+    height: 100%;
+    line-height: 1.2;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    @media only screen and (min-width: 768px) {
+        font-size: 1.8rem;
+        line-height: 2.2rem;
+    }
+}
+
+.container {
+    padding: 0 10px;
+
+    @media only screen and (min-width: 768px) {
+        padding: 0 30px;
+    }
+}

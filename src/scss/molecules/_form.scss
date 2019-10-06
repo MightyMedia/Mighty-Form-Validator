@@ -1,0 +1,46 @@
+
+.form {
+    width: 300px;
+
+    &__group {
+        margin-bottom: 20px;
+        width: 100%;
+
+        label {
+            display: block;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+        }
+
+        input {
+            padding: 0 5px;
+            border: 1px solid grey;
+            border-radius: 3px;
+            line-height: 3rem;
+            font-size: 1.4rem;
+        }
+
+        &.validation-failed {
+            input {
+                border-color: #ff0000;
+            }
+        }
+        &.validation-passed {
+            input {
+                border-color: #00ff00;
+            }
+        }
+
+        .message-error {
+            color: red;
+        }
+    }
+
+    &__field {
+
+    }
+}
