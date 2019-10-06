@@ -57,7 +57,7 @@ For each form field you can choose which validators to run and set some options 
 
 __Example:__
 ```HTML
-<input type="text" name="input1" data-validators="notempty,email"
+<input type="text" name="input1" data-validators="notempty,email">
 ```
 
 Validators can have extra options. With the data-attribute `data-validator-options` you van set these options for each validator.
@@ -66,7 +66,7 @@ There are also a few non-validator-specific options, these are grouped within `g
 
 __Example:__ 
 ```HTML
-<input type="text" name="input1" data-validator-options='{"general": {"validatorTrigger": "field_id"}, "number": {"decimals": false}, "customvalidator" {"setting1": "this", "setting2": "that"}}'
+<input type="text" name="input1" data-validator-options='{"general": {"validatorTrigger": "field_id"}, "number": {"decimals": false}, "customvalidator" {"setting1": "this", "setting2": "that"}}'>
 ```
 
 Non-validator-specific form field options:
