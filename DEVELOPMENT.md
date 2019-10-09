@@ -30,3 +30,4 @@ This project usesd composer and NPM to install all it's development tools and de
 - Set ancestor selector (form globally or per field) to add the valid or error class to
 - Option to execute validation on key-up event, not only on change.
   - Determine for each field if validation should execute on key-up event
+- Options to only validate a field when the user changed the value (not always on every focus change)
