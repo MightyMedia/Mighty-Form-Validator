@@ -38,16 +38,17 @@ Options for the entire form can be set by adding a data-attribute `data-validato
 
 __Example:__
 ```HTML
-<input type="text" name="input1" data-validator-options='{"initialRun": true, "debug": true, "classes": {"passed": "is_valid", "failed": "is_error"}}'
+<input type="text" name="input1" data-validator-options='{"initialRun": true, "debug": true, "classes": {"passed": "is_valid", "failed": "is_error"}, "parentSelector": "form__group"}'
 ```
 
 The following options are available: 
 
 | Option | Description |
 | ----- | ------------ |
-| __initialRun__ | Validate the form on page-load |
-| __classes__ | Set custom CSS classes to add to a form when it is valid or invalid is. Default are `validation-passed` and `validation-failed` |
-| __debug__ | Enable debug-mode. When enabled, the console.log() is filled with debug info |
+| __initialRun__ | Validate the form on page-load. |
+| __classes__ | Set custom CSS classes to add to a form when it is valid or invalid is. Default are `validation-passed` and `validation-failed`. |
+| __parentSelector__ | By default the validation classes (valid or invalid) are placed on the direct parent of the validated form field. With this option you can supply a selector to apply the classes to the closest parent matching the selector. |
+| __debug__ | Enable debug-mode. When enabled, the console.log() is filled with debug info. |
 
 ---
 

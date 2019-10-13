@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="nl-NL">
 <head>
     <title>Mighty Form Validator - demo</title>
-    <link rel="stylesheet" href="./demo/assets/css/app.css">
+    <link rel="stylesheet" href="assets/css/app.css">
 </head>
 
 <body>
@@ -10,10 +10,12 @@
 
     <h1>Mighty Form Validator</h1>
 
-    <form class="form mfvForm" method="post" data-validator-options='{"initialRun": false, "debug": true}'>
+    <form class="form mfvForm" method="post" data-validator-options='{"initialRun": false, "parentSelector": ".formGroup", "debug": true}'>
+        <div class="formGroup">
         <div class="form__group">
             <label>Naam: </label>
             <input class="mfvField" type="text" name="naam" value="" data-validators="notempty" data-validator-options='{"general": {"triggerValidation": "emailfield_2"}}' data-errormessage="Niet ingevuld">
+        </div>
         </div>
 
         <div class="form__group">
@@ -21,14 +23,18 @@
             <input class="mfvField" type="text" name="extra" value="">
         </div>
 
+        <div class="formGroup">
         <div class="form__group">
             <label>Email: </label>
             <input id="emailfield_1" class="mfvField" type="text" name="email" value="" data-validators="email" data-errormessage="Geen geldig e-mailadres">
         </div>
+        </div>
 
+        <div class="formGroup">
         <div class="form__group">
             <label>Email 2: </label>
             <input id="emailfield_2" class="mfvField" type="email" name="email" value="" data-validators="notempty,email" data-validator-options='{"notempty": {"errorText": "Dit is een verplicht veld"}, "email": {"errorText": "Geen geldig emailadres"}}'>
+        </div>
         </div>
 
         <div class="form__group">
@@ -119,16 +125,16 @@
 
 </div>
 
-<script src="../dist/mightyFormValidator.full.min.js"></script>
+<!-- <script src="../dist/mightyFormValidator.full.min.js"></script> -->
 
-<!-- <script src="../dist/mightyFormValidator.min.js"></script>
+<script src="../src/js/mightyFormValidator.js"></script>
 <script src="../src/js/validators/email.js"></script>
 <script src="../src/js/validators/number.js"></script>
 <script src="../src/js/validators/length.js"></script>
 <script src="../src/js/validators/date.js"></script>
 <script src="../src/js/validators/regex.js"></script>
 <script src="../src/js/validators/equals.js"></script>
-<script src="../src/js/validators/zipcode.js"></script> -->
+<script src="../src/js/validators/zipcode.js"></script>
 
 </body>
 </html>

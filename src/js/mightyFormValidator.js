@@ -254,9 +254,18 @@ var mightyFormValidator = (function(){
 
             var errorText   = '';
             var parentElm   = inputElm.parentElement;
+            
+            if (settings.parentSelector !== false) {
+                var tmpParentElm = utilities.getAncestor(inputElm, settings.parentSelector);
+
+                if (tmpParentElm !== null) {
+                    parentElm = tmpParentElm;
+                }
+            }
+
             var errorElm    = parentElm.querySelector('.message-error');
 
-            if (true === isValid) {
+            if (isValid === true) {
                 utilities.log('Update valid');
 
                 parentElm.classList.remove(settings.classes.failed);
@@ -408,6 +417,12 @@ var mightyFormValidator = (function(){
                     }
                 }
             }
+
+            // Check if parentSelector needs to be overwritten
+            if (typeof formOptions.parentSelector !== 'undefined' && formOptions.parentSelector.trim().length > 0) {
+                settings.parentSelector = formOptions.parentSelector.trim();
+            }
+
             utilities.log(settings);
 
             if (formFields !== null && formFields.length > 0) {
