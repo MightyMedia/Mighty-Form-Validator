@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ad6e57a6be24c681f12a966d381955c",
+    "content-hash": "c0bc173fa5b21d2d405060985b27d6fa",
     "packages": [
         {
             "name": "mouf/nodejs-installer",
