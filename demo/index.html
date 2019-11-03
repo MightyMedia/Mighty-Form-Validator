@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="nl-NL">
 <head>
-    <title>Mighty Form Validator - demo</title>
+    <title>Mighty Form Validator - Demos</title>
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
 
@@ -8,133 +8,194 @@
 
 <div class="container">
 
-    <h1>Mighty Form Validator</h1>
+    <h1>Mighty Form Validator  Demos</h1>
+    <hr>
+    <br>
 
-    <form class="form mfvForm" method="post" data-validator-options='{"initialRun": false, "parentSelector": ".formGroup", "debug": true}'>
-        <div class="formGroup">
-        <div class="form__group">
-            <label>Naam: </label>
-            <input class="mfvField" type="text" name="naam" value="" data-validators="notempty" data-validator-options='{"general": {"triggerValidation": "emailfield_2"}}' data-errormessage="Niet ingevuld">
-        </div>
-        </div>
 
-        <div class="form__group">
-            <label>Extra veld: </label>
-            <input class="mfvField" type="text" name="extra" value="">
-        </div>
+    <section class="demo">
 
-        <div class="formGroup">
-        <div class="form__group">
-            <label>Email: </label>
-            <input id="emailfield_1" class="mfvField" type="text" name="email" value="" data-validators="email" data-errormessage="Geen geldig e-mailadres">
-        </div>
-        </div>
+        <h2>Demo 1: Required fields</h2>
 
-        <div class="formGroup">
-        <div class="form__group">
-            <label>Email 2: </label>
-            <input id="emailfield_2" class="mfvField" type="email" name="email" value="" data-validators="notempty,email" data-validator-options='{"notempty": {"errorText": "Dit is een verplicht veld"}, "email": {"errorText": "Geen geldig emailadres"}}'>
-        </div>
-        </div>
-
-        <div class="form__group">
-            <label>Geboortedatum: </label>
-            <input class="mfvField" type="text" name="birthdate" value="" data-validators="date" data-validator-options='{"date": {"acceptShortyear": true, "correctFormat": true, "allowFuture": false}}' data-errortext="Geen geldig geboortedatum">
-        </div>
-
-        <div class="form__group">
-            <label>Kies een datum: </label>
-            <input class="mfvField" type="text" name="date" value="" data-validators="date" data-validator-options='{"date": {"acceptShortyear": false, "correctFormat": false, "allowFuture": true}}' data-errortext="Geen geldig datum">
-        </div>
-
-        <div class="form__group">
-            <label>Telefoonnummer: </label>
-            <input type="text" name="phone" value="">
-        </div>
-
-        <div class="form__group">
-            <label>Postcode: </label><!-- /^[1-9][0-9]{3}[\s]?[A-Za-z]{2}$/i -->
-            <input class="mfvField" type="text" name="zipcode" value="" data-validators="regex" data-validator-options='{"regex": {"regex": "^[0-9]{4}([ ]){0,1}([a-zA-Z]){2}$"}}'>
-        </div>
-
-        <div class="form__group">
-            <label>Straat: </label>
-            <input class="mfvField" type="text" name="street" value="" data-validators="notempty" data-errortext="Niet ingevuld">
-        </div>
-
-        <div class="form__group">
-            <label>Huisnummer: </label>
-            <input class="mfvField" type="text" name="number" value="" data-validators="notempty,number" data-validator-options='{"number": {"decimals": false}}' data-errortext="Geen geldig nummer">
-        </div>
-
-        <div class="form__group">
-            <label>URL: </label>
-            <input type="text" name="url" value="">
-        </div>
-
-        <div class="form__group">
-            <label>MAX (max 6 chars): </label>
-            <input class="mfvField" type="text" name="max" value="" data-validators="length" data-validator-options='{"length": {"max": 6}}' data-errortext="Maximale lengte (6) overschreven">
-        </div>
-
-        <div class="form__group">
-            <label>MIN-MAX (min 2, max 6 chars): </label>
-            <input class="mfvField" type="text" name="min" value="" data-validators="length" data-validator-options='{"length": {"min": 2, "max": 6}}' data-errortext="Te kort (< 2) of te lang (> 6)">
-        </div>
-
-        <div class="form__group">
-            <label>Wachtwoord: </label>
-            <input class="mfvField" type="password" name="password" value="" data-validators="length" data-validator-options='{"length": {"min": 5}}' data-errortext="Minimale lengte van 5 niet behaald">
-        </div>
-
-        <fieldset>
+        <form class="form mfvForm" method="post" data-validator-options='{"initialRun": false, "debug": false}'>
             <div class="form__group">
-                <label>Veld 1: </label>
-                <input id="field1" class="mfvField" data-validators="notempty" type="text" name="veld1" value="">
+                <label>Name: </label>
+                <input class="mfvField" type="text" name="demo1[name]" value="" data-validators="notempty" data-errormessage="This is a required field">
+            </div>
+            <div class="form__group">
+                <label>An other field: </label>
+                <input class="mfvField" type="text" name="demo1[other_field]" value="" data-validators="notempty" data-errormessage="This is a required field">
+            </div>
+        </form>
+        <br>
+
+    </section>
+
+
+    <section class="demo">
+
+        <h2>Demo 2: E-mail validation</h2>
+
+        <form class="form mfvForm" method="post" data-validator-options='{"initialRun": false, "debug": false}'>
+            <div class="form__group">
+                <label>E-mail validator and a required field: </label>
+                <input class="mfvField" type="text" name="demo2[email1]" value="" data-validators="notempty, email" data-errormessage="Not a valid email address">
+            </div>
+            <div class="form__group">
+                <label>E-mail validator and not a required field: </label>
+                <input class="mfvField" type="text" name="demo2[email2]" value="" data-validators="email" data-errormessage="Not a valid email address">
+            </div>
+        </form>
+        <br>
+
+    </section>
+
+
+    <section class="demo">
+
+        <h2>Demo 3: Equals validator</h2>
+
+        <form class="form mfvForm" method="post" data-validator-options='{"initialRun": false, "debug": false}'>
+            <div class="form__group">
+                <label>Field 1 (required): </label>
+                <input id="demo3_field1" class="mfvField" data-validators="notempty" type="text" name="demo3[field1]" value="">
             </div>
 
             <div class="form__group">
-                <label>Veld 2: </label>
-                <input id="field2" class="mfvField" data-validators="notempty,equals" data-validator-options='{"equals": {"compareElement": "#field1"}}' type="text" name="veld2" value="">
+                <label>Field 2 (must be the same as Field 1): </label>
+                <input id="demo3_field2" class="mfvField" data-validators="notempty,equals" data-validator-options='{"equals": {"compareElement": "#demo3_field1"}}' type="text" name="demo3[field2]" value="">
             </div>
-        </fieldset>
-        <br/><br/>
-        <fieldset>
-            <div class="form__group">
-                <label>Postcode NL: </label>
-                <input class="mfvField" data-validators="notempty,zipcode" data-validator-options='{"notempty": {"errorText": "Dit is een verplicht veld"}, "zipcode": {"country": "NL", "correctFormat": true, "errorText": "Geen geldige Nederlandse postcode"}}' type="text" name="postcodenl" value="">
-            </div>
-            <div class="form__group">
-                <label>Postcode BE: </label>
-                <input class="mfvField" data-validators="notempty,zipcode" data-validator-options='{"zipcode": {"country": "BE"}}' type="text" name="postcodebe" value="">
-            </div>
-            <div class="form__group">
-                <label>Postcode DE: </label>
-                <input class="mfvField" data-validators="notempty,zipcode" data-validator-options='{"zipcode": {"country": "de"}}' type="text" name="postcodede" value="">
-            </div>
-        </fieldset>
+        </form>
+        <br>
 
-        <br/><br/>
+    </section>
 
-        <div class="form__group">
-            <button type="submit">Verzenden</button>
-        </div>
 
-        <br/><br/>
-    </form>
+    <section class="demo">
+
+        <h2>Full demo</h2>
+
+        <form class="form mfvForm" method="post" data-validator-options='{"initialRun": false, "parentSelector": ".formGroup", "debug": true}'>
+            <div class="form__group formGroup">
+                <label>Name: </label>
+                <input class="mfvField" type="text" name="name" value="" data-validators="notempty" data-validator-options='{"general": {"triggerValidation": "emailfield_2"}}' data-errormessage="Niet ingevuld">
+            </div>
+
+            <div class="form__group">
+                <label>Extra veld: </label>
+                <input class="mfvField" type="text" name="extra" value="">
+            </div>
+
+            <div class="form__group">
+                <label>Email: </label>
+                <input id="emailfield_1" class="mfvField" type="text" name="email" value="" data-validators="email" data-errormessage="Geen geldig e-mailadres">
+            </div>
+
+            <div class="form__group">
+                <label>Email 2: </label>
+                <input id="emailfield_2" class="mfvField" type="email" name="email" value="" data-validators="notempty,email" data-validator-options='{"notempty": {"errorText": "Dit is een verplicht veld"}, "email": {"errorText": "Geen geldig emailadres"}}'>
+            </div>
+
+            <div class="form__group">
+                <label>Geboortedatum: </label>
+                <input class="mfvField" type="text" name="birthdate" value="" data-validators="date" data-validator-options='{"date": {"acceptShortyear": true, "correctFormat": true, "allowFuture": false}}' data-errortext="Geen geldig geboortedatum">
+            </div>
+
+            <div class="form__group">
+                <label>Kies een datum: </label>
+                <input class="mfvField" type="text" name="date" value="" data-validators="date" data-validator-options='{"date": {"acceptShortyear": false, "correctFormat": false, "allowFuture": true}}' data-errortext="Geen geldig datum">
+            </div>
+
+            <div class="form__group">
+                <label>Telefoonnummer: </label>
+                <input type="text" name="phone" value="">
+            </div>
+
+            <div class="form__group">
+                <label>Postcode: </label><!-- /^[1-9][0-9]{3}[\s]?[A-Za-z]{2}$/i -->
+                <input class="mfvField" type="text" name="zipcode" value="" data-validators="regex" data-validator-options='{"regex": {"regex": "^[0-9]{4}([ ]){0,1}([a-zA-Z]){2}$"}}'>
+            </div>
+
+            <div class="form__group">
+                <label>Straat: </label>
+                <input class="mfvField" type="text" name="street" value="" data-validators="notempty" data-errortext="Niet ingevuld">
+            </div>
+
+            <div class="form__group">
+                <label>Huisnummer: </label>
+                <input class="mfvField" type="text" name="number" value="" data-validators="notempty,number" data-validator-options='{"number": {"decimals": false}}' data-errortext="Geen geldig nummer">
+            </div>
+
+            <div class="form__group">
+                <label>URL: </label>
+                <input type="text" name="url" value="">
+            </div>
+
+            <div class="form__group">
+                <label>MAX (max 6 chars): </label>
+                <input class="mfvField" type="text" name="max" value="" data-validators="length" data-validator-options='{"length": {"max": 6}}' data-errortext="Maximale lengte (6) overschreven">
+            </div>
+
+            <div class="form__group">
+                <label>MIN-MAX (min 2, max 6 chars): </label>
+                <input class="mfvField" type="text" name="min" value="" data-validators="length" data-validator-options='{"length": {"min": 2, "max": 6}}' data-errortext="Te kort (< 2) of te lang (> 6)">
+            </div>
+
+            <div class="form__group">
+                <label>Wachtwoord: </label>
+                <input class="mfvField" type="password" name="password" value="" data-validators="length" data-validator-options='{"length": {"min": 5}}' data-errortext="Minimale lengte van 5 niet behaald">
+            </div>
+
+            <fieldset>
+                <div class="form__group">
+                    <label>Veld 1: </label>
+                    <input id="field1" class="mfvField" data-validators="notempty" type="text" name="veld1" value="">
+                </div>
+
+                <div class="form__group">
+                    <label>Veld 2: </label>
+                    <input id="field2" class="mfvField" data-validators="notempty,equals" data-validator-options='{"equals": {"compareElement": "#field1"}}' type="text" name="veld2" value="">
+                </div>
+            </fieldset>
+            <br/><br/>
+            <fieldset>
+                <div class="form__group">
+                    <label>Postcode NL: </label>
+                    <input class="mfvField" data-validators="notempty,zipcode" data-validator-options='{"notempty": {"errorText": "Dit is een verplicht veld"}, "zipcode": {"country": "NL", "correctFormat": true, "errorText": "Geen geldige Nederlandse postcode"}}' type="text" name="postcodenl" value="">
+                </div>
+                <div class="form__group">
+                    <label>Postcode BE: </label>
+                    <input class="mfvField" data-validators="notempty,zipcode" data-validator-options='{"zipcode": {"country": "BE"}}' type="text" name="postcodebe" value="">
+                </div>
+                <div class="form__group">
+                    <label>Postcode DE: </label>
+                    <input class="mfvField" data-validators="notempty,zipcode" data-validator-options='{"zipcode": {"country": "de"}}' type="text" name="postcodede" value="">
+                </div>
+            </fieldset>
+
+            <br/><br/>
+
+            <div class="form__group">
+                <button type="submit">Verzenden</button>
+            </div>
+
+            <br/><br/>
+        </form>
+
+    </section>
 
 </div>
 
-<!-- <script src="../dist/mightyFormValidator.full.min.js"></script> -->
+<script src="../dist/mightyFormValidator.full.min.js"></script>
 
-<script src="../src/js/mightyFormValidator.js"></script>
+<!-- <script src="../src/js/mightyFormValidator.js"></script>
 <script src="../src/js/validators/email.js"></script>
 <script src="../src/js/validators/number.js"></script>
 <script src="../src/js/validators/length.js"></script>
 <script src="../src/js/validators/date.js"></script>
 <script src="../src/js/validators/regex.js"></script>
 <script src="../src/js/validators/equals.js"></script>
-<script src="../src/js/validators/zipcode.js"></script>
+<script src="../src/js/validators/zipcode.js"></script> -->
 
 </body>
 </html>
