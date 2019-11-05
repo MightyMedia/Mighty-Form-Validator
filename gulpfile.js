@@ -11,7 +11,7 @@ var gulp = require('gulp'),
 
 const paths = {
 	sass: {
-		src: 'src/scss/**/*.scss',
+		src: 'demo/assets/scss/**/*.scss',
 		dest: 'demo/assets/css/'
 	},
 	scripts: {
@@ -29,7 +29,7 @@ gulp.task('watchSass',  () => {
             outputStyle: 'compressed'
         }).on('error', sass.logError))
         .pipe(autoprefixer({
-            browsers: ['last 2 versions', 'IE 10'],
+            overrideBrowserslist: ['last 2 versions', 'IE 10'],
             cascade: false
         }))
         .pipe(sourcemaps.write())
@@ -43,7 +43,7 @@ gulp.task('compileSass',  () => {
             outputStyle: 'compressed'
         }).on('error', sass.logError))
                 .pipe(autoprefixer({
-            browsers: ['last 2 versions', 'IE 10'],
+            overrideBrowserslist: ['last 2 versions', 'IE 10'],
             cascade: false
         }))
         .pipe(gulp.dest( paths.sass.dest ));
@@ -74,6 +74,8 @@ gulp.task('watchScripts', () => {
             .pipe(jshint.reporter('jshint-stylish'))
             .pipe(jshint().on('error', errorAlert))
             .pipe(concat('mightyFormValidator.full.min.js'))
+            .pipe(gulp.dest( paths.scripts.dest ))
+            .pipe(uglify().on('error', errorAlert))
             .pipe(gulp.dest( paths.scripts.dest ))
     ]);
     combined.on('error', console.error.bind(console));
@@ -156,9 +158,9 @@ function errorAlert(err) {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch( paths.sass.src, ['watchSass']);
-    gulp.watch( paths.scripts.src, ['watchScripts', 'compileEngineScript']);
+    gulp.watch( paths.sass.src, gulp.series('watchSass'));
+    gulp.watch( paths.scripts.src, gulp.series('watchScripts', 'compileEngineScript'));
 });
 
 //gulp.task('dev', ['watchSass', 'watchScripts', 'compileSprite', 'copyFonts', 'copyImages', 'copySvgs']);
-gulp.task('default', ['compileSass', 'compileScripts', 'compileEngineScript']);
+gulp.task('default', gulp.series('compileSass', 'compileScripts', 'compileEngineScript'));
