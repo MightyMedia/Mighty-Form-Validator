@@ -15,9 +15,8 @@ This project uses composer and NPM to install all it's development tools and dep
 
 ## TODO
 - Make better demo-page
-  - Smaller separate demo's
+  - Smaller separate demo's (on going)
   - Style input validation style a bit nicer (cross and check-marks?)
-- Update to latest/stable versions for (dev)dependencies
 - Better documentation (features and options in table?)
   - Explain writing/adding custom validators
 - Add more (core) validators
