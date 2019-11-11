@@ -26,10 +26,10 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "./build/gulp-install.sh"
+            "./build/install-gulp.sh"
         ],
         "post-update-cmd": [
-            "./build/gulp-install.sh"
+            "./build/install-gulp.sh"
         ]
     },
     "extra": {
