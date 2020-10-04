@@ -27,6 +27,9 @@
     "scripts": {
         "post-install-cmd": [
             "./build/install-gulp.sh"
+        ],
+        "post-update-cmd": [
+            "./build/update-gulp.sh"
         ]
     },
     "extra": {
