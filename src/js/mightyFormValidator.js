@@ -202,14 +202,25 @@ var mightyFormValidator = (function(){
             utilities.log('Function: validation.getValidators()');
             var dataValidators = fieldElm.dataset.validators;
             var fieldValidators = [];
+            var fieldValidatorsTrimmed = [];
 
             if (typeof dataValidators !== 'undefined' && dataValidators.length > 0) {
                 if ((dataValidators.indexOf(',') >= 0)) {
-                    fieldValidators = dataValidators.split(',');
+                    fieldValidators = dataValidators.trim().split(',');
                 } else {
-                    fieldValidators.push(dataValidators);
+                    fieldValidators.push(dataValidators.trim());
                 }
             }
+            
+            utilities.log('List found validators:');
+            utilities.log(fieldValidators);
+            
+            // Loop through validators and trim name/input
+            for (var i=0; i<fieldValidators.length; i++) {
+                fieldValidatorsTrimmed.push(fieldValidators[i].trim());
+            }
+            fieldValidators = fieldValidatorsTrimmed;
+            fieldValidatorsTrimmed = [];
 
             return fieldValidators;
         },
