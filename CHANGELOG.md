@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Trim validators passed via the data-validators attribute to prevent validating issues
 - Renamed dev tools to make more sense
 - Updated documentation
 - Updated build tools

@@ -38,7 +38,9 @@ Options for the entire form can be set by adding a data-attribute `data-validato
 
 __Example:__
 ```HTML
-<input type="text" name="input1" data-validator-options='{"initialRun": true, "debug": true, "classes": {"passed": "is_valid", "failed": "is_error"}, "parentSelector": "form__group"}'
+<form type="text" name="input1" data-validator-options='{"initialRun": true, "debug": true, "classes": {"passed": "is_valid", "failed": "is_error"}, "parentSelector": "form__group"}'>
+...
+</form>
 ```
 
 The following options are available: 
