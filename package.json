@@ -5,7 +5,7 @@
     "private": false,
     "scripts": {},
     "devDependencies": {
-        "node-sass": "^4.13.0"
+        "node-sass": "^4.13.1"
     },
     "dependencies": {
         "gulp": "^4.0.2",
