@@ -108,7 +108,7 @@
 
             <div class="form__group">
                 <label>Telefoonnummer: </label>
-                <input type="text" name="phone" value="">
+                <input class="mfvField" type="text" name="phone" value="" data-validators="phone-dutch" data-validator-options='{"phone-dutch": {"correctFormat": true}}'>
             </div>
 
             <div class="form__group">
@@ -128,19 +128,24 @@
 
             <div class="form__group">
                 <label>URL: </label>
-                <input type="text" name="url" value="">
+                <input class="mfvField" type="text" name="url" value="" data-validators="url" data-validator-options='{"url": {"requireScheme": true}}'>
             </div>
 
             <div class="form__group">
                 <label>MAX (max 6 chars): </label>
-                <input class="mfvField" type="text" name="max" value="" data-validators="length" data-validator-options='{"length": {"max": 6}}' data-errortext="Maximale lengte (6) overschreven">
+                <input class="mfvField" type="text" name="length-max" value="" data-validators="length" data-validator-options='{"length": {"max": 6}}' data-errortext="Maximale lengte (6) overschreven">
             </div>
 
             <div class="form__group">
                 <label>MIN-MAX (min 2, max 6 chars): </label>
-                <input class="mfvField" type="text" name="min" value="" data-validators="length" data-validator-options='{"length": {"min": 2, "max": 6}}' data-errortext="Te kort (< 2) of te lang (> 6)">
+                <input class="mfvField" type="text" name="length-min-max" value="" data-validators="length" data-validator-options='{"length": {"min": 2, "max": 6}}' data-errortext="Te kort (< 2) of te lang (> 6)">
             </div>
-
+            
+            <div class="form__group">
+                <label>NUMBER (min value 3, max value 45 chars): </label>
+                <input class="mfvField" type="text" name="number-min-max" value="" data-validators="number" data-validator-options='{"number": {"decimals": false, "min": 3, "max": 45}}' data-errortext="Minimaal 3,  maximaal 45">
+            </div>
+            
             <div class="form__group">
                 <label>Wachtwoord: </label>
                 <input class="mfvField" type="password" name="password" value="" data-validators="length" data-validator-options='{"length": {"min": 5}}' data-errortext="Minimale lengte van 5 niet behaald">

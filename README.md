@@ -110,12 +110,14 @@ __NOTE 3:__ When the `notempty` validator is not assigned to a field, the field 
 | --------- | ------------ | ------- | ------ |
 | Required field | __notempty__ | Check if field is not empty. Default in the _validator engine_. | No options |
 | E-mail | __email__ | Check if the value is formatted as a valid email address. | No options |
+| URL | __url__ | Check if the value is formatted as a valid URL. | __requireScheme__ Valid URL scheme required. Boolean, default `false` |
 | Date | __date__ | Check if value is a valid date. Optionally with auto-correction of the input, allow/disable future dates, allow short year (2 digits) | __acceptShortyear__ allow 2 digits notation for date year. Boolean, default `false` <br/>__correctFormat__ Auto-correct input date. Boolean, default `false` <br/>__allowFuture__ Allow future date, default `true` |
 | Min / max length | __length__ | Check if value has a minimum and/or maximum string lenght. | __min__ Minimum lenght. Interger, optional<br/> __max__ Maximum lenght. Interger, optional |
 | Number | __number__ | Check if value is a number, optional with or without decimals. | __decimals__ Allow decimals. Boolean, default `true`. |
 | Custom regex | __regex__ | Validate the value against a custom regular expression. | __regex__ Regular Expression to validate against. String, ie. `"^[0-9]{4}([ ]){0,1}([a-zA-Z]){2}$"` |
 | Equals | __equals__ | Compare field value with another fields value. | __compareElement__ CSS selector for the other field. String: ie. `#ditveld` |
 | Zipcode | __zipcode__ | Check if the value is formatted as a valid zipcode. Custom zipcode-regexs can be added with: `mightyFormValidator.validators.zipcode.addRegex('PL', regExp);` | __country__ Country to validate `NL`,`BE`,`DE`. String, default `NL`<br/> __correctFormat__ Auto-correct input, Dutch zipcodes (NL) only? Boolean, default `false` |
+| Dutch phone number | __dutch-phone__ | Check if value is a valid Dutch phone number. Optionally with auto-correction of the input | __correctFormat__ Auto-correct input date. Boolean, default `false` |
 
 ---
 
@@ -142,6 +144,14 @@ __NOTE 3:__ When the `notempty` validator is not assigned to a field, the field 
     <div class="form__group">
         <label>E-mail: </label>
         <input class="mfvField" type="text" name="email" value="" data-validators="notempty,email" data-errortext="Invalid e-mail address">
+    </div>
+    <div class="form__group">
+        <label>URL: </label>
+        <input class="mfvField" type="text" name="url" value="" data-validators="url" data-validator-options='{"url": {"requireScheme": true}}' data-errortext="Invalid URL">
+    </div>
+    <div class="form__group">
+        <label>Phone number: </label>
+        <input class="mfvField" type="text" name="phone" value="" data-validators="phone-dutch" data-validator-options='{"phone-dutch": {"correctFormat": true}}'>
     </div>
     
     <fieldset>
