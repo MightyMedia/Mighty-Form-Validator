@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add Dutch phone validator
+
 ### Changed
 
 - Trim validators passed via the data-validators attribute to prevent validating issues

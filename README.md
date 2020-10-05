@@ -116,6 +116,7 @@ __NOTE 3:__ When the `notempty` validator is not assigned to a field, the field 
 | Custom regex | __regex__ | Validate the value against a custom regular expression. | __regex__ Regular Expression to validate against. String, ie. `"^[0-9]{4}([ ]){0,1}([a-zA-Z]){2}$"` |
 | Equals | __equals__ | Compare field value with another fields value. | __compareElement__ CSS selector for the other field. String: ie. `#ditveld` |
 | Zipcode | __zipcode__ | Check if the value is formatted as a valid zipcode. Custom zipcode-regexs can be added with: `mightyFormValidator.validators.zipcode.addRegex('PL', regExp);` | __country__ Country to validate `NL`,`BE`,`DE`. String, default `NL`<br/> __correctFormat__ Auto-correct input, Dutch zipcodes (NL) only? Boolean, default `false` |
+| Dutch phone number | __dutch-phone__ | Check if value is a valid Dutch phone number. Optionally with auto-correction of the input | __correctFormat__ Auto-correct input date. Boolean, default `false` |
 
 ---
 
@@ -142,6 +143,10 @@ __NOTE 3:__ When the `notempty` validator is not assigned to a field, the field 
     <div class="form__group">
         <label>E-mail: </label>
         <input class="mfvField" type="text" name="email" value="" data-validators="notempty,email" data-errortext="Invalid e-mail address">
+    </div>
+    <div class="form__group">
+        <label>Phone number: </label>
+        <input class="mfvField" type="text" name="phone" value="" data-validators="phone-dutch" data-validator-options='{"phone-dutch": {"correctFormat": true}}'>
     </div>
     
     <fieldset>
