@@ -7,11 +7,12 @@
 		validate: function(self, options) {
 			mightyFormValidator.utilities.log('Function: phone-dutch.validate()');
 			
-			var minLength = 10;
 			var isValid,
 				inputElm = self,
 				value = self.value,
-				phoneRegEx = new RegExp("[0-9]{" + minLength + "}");
+				minLength = 10,
+				expression = "[0-9]{" + minLength + "}",
+				phoneRegEx = new RegExp(expression);
 				
 			var newValue = value.replace(/\s+/g, '').replace('(0)', '');
 
