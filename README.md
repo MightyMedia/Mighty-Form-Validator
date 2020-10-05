@@ -6,7 +6,7 @@ Generic client-side form validator written in JavaScript with focus on being:
 * Extendable
 * Easy-to-use
 
-Version: 0.1.1
+Version: 0.2.0
 
 For changes, see changelog: [CHANGELOG.md](CHANGELOG.md)
 
@@ -56,7 +56,7 @@ The following options are available:
 
 #### Field options
 
-For each form field you can choose which validators to run and set some options per validator. With the data-attribute `data-validators` you can select the validators you want to run on the form field. Multiple validators are seperated with a comma (NO SPACES).
+For each form field you can choose which validators to run and set some options per validator. With the data-attribute `data-validators` you can select the validators you want to run on the form field. Multiple validators are separated with a comma (NO SPACES).
 
 __Example:__
 ```HTML
@@ -101,7 +101,7 @@ The validators are executed in the order they are places in `data-validators`. W
 
 __NOTE:__ The `notempty` validator is a special one and is always executed first when assigned to a form field.
 
-__NOTE 2:__ The `notempty` validator is also the only validator that is defined in the _validator engine_ core file (`mightyFormValidator.js`). All other validators are defined exernally. The default (core) validators can be found in the `validators` folder.
+__NOTE 2:__ The `notempty` validator is also the only validator that is defined in the _validator engine_ core file (`mightyFormValidator.js`). All other validators are defined externally. The default (core) validators can be found in the `validators` folder.
 
 __NOTE 3:__ When the `notempty` validator is not assigned to a field, the field is not required. Other validators assigned to the field are only executed when the field is not empty. So the field is only validated when it has a value. When empty, the field is not valid or invalid, it is unvalidated.
 
@@ -112,11 +112,11 @@ __NOTE 3:__ When the `notempty` validator is not assigned to a field, the field 
 | E-mail | __email__ | Check if the value is formatted as a valid email address. | No options |
 | URL | __url__ | Check if the value is formatted as a valid URL. | __requireScheme__ Valid URL scheme required. Boolean, default `false` |
 | Date | __date__ | Check if value is a valid date. Optionally with auto-correction of the input, allow/disable future dates, allow short year (2 digits) | __acceptShortyear__ allow 2 digits notation for date year. Boolean, default `false` <br/>__correctFormat__ Auto-correct input date. Boolean, default `false` <br/>__allowFuture__ Allow future date, default `true` |
-| Min / max length | __length__ | Check if value has a minimum and/or maximum string lenght. | __min__ Minimum lenght. Interger, optional<br/> __max__ Maximum lenght. Interger, optional |
-| Number | __number__ | Check if value is a number, optional with or without decimals. | __decimals__ Allow decimals. Boolean, default `true`. |
+| Min / max length | __length__ | Check if value has a minimum and/or maximum string length. | __min__ Minimum length. Integer, optional<br/> __max__ Maximum length. Integer, optional |
+| Number | __number__ | Check if value is a number, optional with or without decimals, and min or max value. | __decimals__ Allow decimals. Boolean, default `true`<br/> __min__ Minimum value. Float, optional<br/> __max__ Maximum value. Float, optional |
 | Custom regex | __regex__ | Validate the value against a custom regular expression. | __regex__ Regular Expression to validate against. String, ie. `"^[0-9]{4}([ ]){0,1}([a-zA-Z]){2}$"` |
 | Equals | __equals__ | Compare field value with another fields value. | __compareElement__ CSS selector for the other field. String: ie. `#ditveld` |
-| Zipcode | __zipcode__ | Check if the value is formatted as a valid zipcode. Custom zipcode-regexs can be added with: `mightyFormValidator.validators.zipcode.addRegex('PL', regExp);` | __country__ Country to validate `NL`,`BE`,`DE`. String, default `NL`<br/> __correctFormat__ Auto-correct input, Dutch zipcodes (NL) only? Boolean, default `false` |
+| Zipcode | __zipcode__ | Check if the value is formatted as a valid zipcode. Custom zipcode-regexes can be added with: `mightyFormValidator.validators.zipcode.addRegex('PL', regExp);` | __country__ Country to validate `NL`,`BE`,`DE`. String, default `NL`<br/> __correctFormat__ Auto-correct input, Dutch zipcodes (NL) only? Boolean, default `false` |
 | Dutch phone number | __dutch-phone__ | Check if value is a valid Dutch phone number. Optionally with auto-correction of the input | __correctFormat__ Auto-correct input date. Boolean, default `false` |
 
 ---
