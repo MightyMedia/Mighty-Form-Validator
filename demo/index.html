@@ -12,7 +12,6 @@
     <hr>
     <br>
 
-
     <section class="demo">
 
         <h2>Demo 1: Required fields</h2>
@@ -25,6 +24,18 @@
             <div class="form__group">
                 <label>An other field: </label>
                 <input class="mfvField" type="text" name="demo1[other_field]" value="" data-validators="notempty" data-errormessage="This is a required field">
+            </div>
+            <div class="form__group">
+                <label>A required checkbox: </label>
+                <input class="mfvField" type="checkbox" name="demo1[checkbox]" value="checkbox" data-validators="notempty" data-errormessage="This is a required field">
+            </div>
+            <div class="form__group">
+                <label>A required radio: </label>
+                Option 1<br>
+				<input class="mfvField" type="radio" name="demo1[radio]" value="option 1" data-validators="notempty" data-errormessage="This is a required field">
+				<br><br>
+                Option 2<br>
+				<input class="mfvField" type="radio" name="demo1[radio]" value="option 2" data-validators="notempty" data-errormessage="This is a required field">
             </div>
         </form>
         <br>
@@ -75,7 +86,7 @@
 
         <h2>Full demo</h2>
 
-        <form class="form mfvForm" method="post" data-validator-options='{"initialRun": false, "parentSelector": ".formGroup", "debug": true}'>
+        <form class="form mfvForm" method="post" data-validator-options='{"initialRun": false, "parentSelector": ".formGroup", "debug": false}'>
             <div class="form__group formGroup">
                 <label>Name: </label>
                 <input class="mfvField" type="text" name="name" value="" data-validators="notempty" data-validator-options='{"general": {"triggerValidation": "emailfield_2"}}' data-errormessage="Niet ingevuld">

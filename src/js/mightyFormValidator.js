@@ -135,13 +135,35 @@ var mightyFormValidator = (function(){
                     utilities.log('Function: notempty.validate()');
 
                     var isValid,
-                        value = self.value;
+                        value = self.value,
+						type  = self.type;
+					
+					// Check for checkbox!
+					utilities.log('Input type: ' + type);
 
-                    if (value.trim().length > 0) {
-                        isValid = true;
-                    } else {
-                        isValid = false;
-                    }
+					if ( ['checkbox','radio'].includes(type) ) {
+						
+						if ( type === 'checkbox' ) {
+							utilities.log('Checkbox validation');
+
+							if (self.checked) {
+								isValid = true;
+							} else {
+								isValid = false;
+							}
+						} else {
+							utilities.log('Radio validation not yet available');
+						}
+
+					} else {
+						utilities.log('Regular validation');
+
+						if (value.trim().length > 0) {
+							isValid = true;
+						} else {
+							isValid = false;
+						}
+					}
 
                     return isValid;
                 }
