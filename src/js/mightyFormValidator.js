@@ -493,6 +493,7 @@ var mightyFormValidator = (function(){
     return {
         init        : init,
         validators  : validators,
+        validation  : validation,
         utilities   : utilities
     };
 
