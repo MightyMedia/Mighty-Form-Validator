@@ -25,10 +25,11 @@
                 <label>An other field: </label>
                 <input class="mfvField" type="text" name="demo1[other_field]" value="" data-validators="notempty" data-errormessage="This is a required field">
             </div>
-            <div class="form__group">
-                <label>A required checkbox: </label>
-                <input class="mfvField" type="checkbox" name="demo1[checkbox]" value="checkbox" data-validators="notempty" data-errormessage="This is a required field">
+            <div class="form__group form__group--checkbox">
+                <input id="requiredCheckboxField" class="mfvField" type="checkbox" name="demo1[checkbox]" value="checkbox" data-validators="notempty" data-errormessage="This is a required field">
+                <label for="requiredCheckboxField">A required checkbox:</label>
             </div>
+            <!--
             <div class="form__group">
                 <label>A required radio: </label>
                 Option 1<br>
@@ -37,6 +38,7 @@
                 Option 2<br>
 				<input class="mfvField" type="radio" name="demo1[radio]" value="option 2" data-validators="notempty" data-errormessage="This is a required field">
             </div>
+            -->
         </form>
         <br>
 
