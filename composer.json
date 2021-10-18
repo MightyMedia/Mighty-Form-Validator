@@ -1,7 +1,7 @@
 {
     "name": "mightymedia/mfv",
     "description": "Generic client-side form validator written in JavaScript",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "readme": "README.md",
     "license": "MIT",
     "authors": [
