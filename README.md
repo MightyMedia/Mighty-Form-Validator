@@ -6,7 +6,7 @@ Generic client-side form validator written in JavaScript with focus on being:
 * Extendable
 * Easy-to-use
 
-Version: 0.2.1
+Version: 0.2.2
 
 For changes, see changelog: [CHANGELOG.md](CHANGELOG.md)
 

@@ -3,6 +3,8 @@
     width: 300px;
 
     &__group {
+        display: flex;
+        flex-direction: column;
         margin-bottom: 20px;
         width: 100%;
 
@@ -22,16 +24,43 @@
             border-radius: 3px;
             line-height: 3rem;
             font-size: 1.4rem;
+            
+            &[type=checkbox] {
+                width: 15px;
+                height: 15px;
+                
+                order: 2;
+                
+                & + label {
+                    order: 1;
+                }
+            }
         }
 
         &.validation-failed {
             input {
                 border-color: #ff0000;
             }
+            
+            input[type=checkbox] {
+                outline: #ff0000;
+                outline-width: 1px;
+                outline-style: auto;
+                
+                & + label {
+                    color: #ff0000;
+                }
+            }
         }
         &.validation-passed {
             input {
                 border-color: #00ff00;
+            }
+            
+            input[type=checkbox] {
+                //outline: #00ff00;
+                outline-width: 1px;
+                outline-style: auto;
             }
         }
 
