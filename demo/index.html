@@ -25,6 +25,10 @@
                 <label>An other field: </label>
                 <input class="mfvField" type="text" name="demo1[other_field]" value="" data-validators="notempty" data-errormessage="This is a required field">
             </div>
+            <div class="form__group">
+                <label>KeyUp field: </label>
+                <input class="mfvField" type="text" name="demo1[keyup_field]" value="" data-validators="notempty" data-validator-options='{"general": {"keyUp": 2}}'  data-errormessage="This is a required field">
+            </div>
             <div class="form__group form__group--checkbox">
                 <input id="requiredCheckboxField" class="mfvField" type="checkbox" name="demo1[checkbox]" value="checkbox" data-validators="notempty" data-errormessage="This is a required field">
                 <label for="requiredCheckboxField">A required checkbox:</label>
@@ -56,7 +60,7 @@
             </div>
             <div class="form__group">
                 <label>E-mail validator and not a required field: </label>
-                <input class="mfvField" type="text" name="demo2[email2]" value="" data-validators="email" data-errormessage="Not a valid email address">
+                <input class="mfvField" type="text" name="demo2[email2]" value="" data-validators="email" data-validator-options='{"general": {"keyUp": 1}}' data-errormessage="Not a valid email address">
             </div>
         </form>
         <br>
@@ -101,7 +105,7 @@
 
             <div class="form__group">
                 <label>Email: </label>
-                <input id="emailfield_1" class="mfvField" type="text" name="email" value="" data-validators="email" data-errormessage="Geen geldig e-mailadres">
+                <input id="emailfield_1" class="mfvField" type="text" name="email" value="" data-validators="email" data-validator-options='{"general": {"keyUp": 1}}' data-errormessage="Geen geldig e-mailadres">
             </div>
 
             <div class="form__group">
@@ -204,16 +208,16 @@
 
 </div>
 
-<script src="../dist/mightyFormValidator.full.min.js"></script>
+<!-- <script src="../dist/mightyFormValidator.full.min.js"></script> -->
 
-<!-- <script src="../src/js/mightyFormValidator.js"></script>
+<script src="../src/js/mightyFormValidator.js"></script>
 <script src="../src/js/validators/email.js"></script>
 <script src="../src/js/validators/number.js"></script>
 <script src="../src/js/validators/length.js"></script>
 <script src="../src/js/validators/date.js"></script>
 <script src="../src/js/validators/regex.js"></script>
 <script src="../src/js/validators/equals.js"></script>
-<script src="../src/js/validators/zipcode.js"></script> -->
+<script src="../src/js/validators/zipcode.js"></script>
 
 </body>
 </html>

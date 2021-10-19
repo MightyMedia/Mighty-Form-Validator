@@ -77,7 +77,7 @@ Non-validator-specific form field options:
 | Option | Description |
 | ----- | ------------ |
 | __validatorTrigger__ | The ID of the field that gets revalidated when the current field changes. |
-| _keyUp_ | __Not available yet__ Trigger field validation on the key up event, possible values: `0` (no, default), `1` (only show if field is valid), `2` (show if field is valid or invalid). |
+| _keyUp_ | Trigger field validation on the key up event, possible values: `0` (no, default), `1` (only show if field is valid), `2` (show if field is valid or invalid). |
 
 ---
 
