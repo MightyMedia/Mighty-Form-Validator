@@ -60,7 +60,7 @@ var mightyFormValidator = (function(){
     // Form validation settings
     var settings = {
         initialRun: false,
-        initialRunTimeout: 10,
+        initialRunTimeout: 20,
         parentSelector: false,
         classes:  {
             passed: 'validation-passed',
@@ -178,19 +178,19 @@ var mightyFormValidator = (function(){
 
     // Events binding
     var events = {
-        bind: function(fieldElm, fieldValidators) {
+        bind: function(fieldElm, fieldValidators, formElm) {
             utilities.log('Function: events.bind for field');
 			var validatorOptions = validation.getValidatorOptions(fieldElm);
 			fieldValidators = (typeof fieldValidators === 'undefined'  || fieldValidators === null) ? [] : fieldValidators;
 			utilities.log(fieldValidators);
 			utilities.log(validatorOptions);
 
-            fieldElm.on('blur.mfvBlur', function() {
-                events.onChange(fieldElm, fieldValidators, validatorOptions);
+            fieldElm.on('blur.mfvBlur', function(event) {
+                events.onChange(fieldElm, fieldValidators, validatorOptions, event, formElm);
             }, false);
 
-            fieldElm.on('change.mfvChange', function() {
-                events.onChange(fieldElm, fieldValidators, validatorOptions);
+            fieldElm.on('change.mfvChange', function(event) {
+                events.onChange(fieldElm, fieldValidators, validatorOptions, event, formElm);
             }, false);
 
 			if ( typeof validatorOptions.general !== 'undefined' && validatorOptions.general.keyUp !== 'undefined' && validatorOptions.general.keyUp > 0 && validatorOptions.general.keyUp <= 2 ) {
@@ -206,20 +206,20 @@ var mightyFormValidator = (function(){
 					}
 
 					if (event.type === 'keyup' && isTabKey !== true) {
-						events.onKeyUp(fieldElm, fieldValidators, validatorOptions, event);
+						events.onKeyUp(fieldElm, fieldValidators, validatorOptions, event, formElm);
 					}
 				}, false);
 			}
 
             if (settings.initialRun === true) {
-                validation.validateInput(fieldElm, fieldValidators);
+                validation.validateInput(fieldElm, fieldValidators, null, formElm);
             }
         },
 
-        onChange: function(fieldElm, fieldValidators, validatorOptions) {
+        onChange: function(fieldElm, fieldValidators, validatorOptions, event, formElm) {
             utilities.log('Function: events.onchange');
 			validatorOptions = (typeof validatorOptions === 'undefined') ? validation.getValidatorOptions(fieldElm) : validatorOptions;
-            validation.validateInput(fieldElm, fieldValidators);
+            validation.validateInput(fieldElm, fieldValidators, event, formElm);
 
             // Check if there is an other field that should have it's validation triggered
             utilities.log('Check for trigger validation');
@@ -233,19 +233,19 @@ var mightyFormValidator = (function(){
 
                 if (triggerField !== null && typeof triggerField !== 'undefined') {
                     setTimeout(function() {
-                        validation.validateInput(triggerField);
+                        validation.validateInput(triggerField, null, null, formElm);
                     }, 50); //
                 }
             }
         },
 
-		onKeyUp: function(fieldElm, fieldValidators, validatorOptions, event) {
+		onKeyUp: function(fieldElm, fieldValidators, validatorOptions, event, formElm) {
             utilities.log('Function: events.onkeyup');
 			validatorOptions = (typeof validatorOptions === 'undefined') ? validation.getValidatorOptions(fieldElm) : validatorOptions;
 			utilities.log(validatorOptions);
 
 			if ( typeof validatorOptions.general !== 'undefined' && validatorOptions.general.keyUp !== 'undefined' && validatorOptions.general.keyUp > 0 && validatorOptions.general.keyUp <= 2 ) {
-				validation.validateInput(fieldElm, fieldValidators, event);
+				validation.validateInput(fieldElm, fieldValidators, event, formElm);
 			}
 
 		}
@@ -379,7 +379,7 @@ var mightyFormValidator = (function(){
         },
 
         // Validate input field
-        validateInput: function(inputElm, fieldValidators, triggerEvent) {
+        validateInput: function(inputElm, fieldValidators, triggerEvent, formElm) {
             var isValid;
             var isRequired = false;
             var validatorOptions = {};
@@ -410,7 +410,10 @@ var mightyFormValidator = (function(){
             if ( !inputElm.hasAttribute('hidden') && !inputElm.hasAttribute('disabled') ) {
 
                 // Validate for required or not empty
-                if ((isValid === undefined || isValid === true) && (inputElm.hasAttribute('required') || (fieldValidators.indexOf('notempty') >= 0 ) || ('validateRequired' in inputElm.dataset))) {
+                if (
+                    (isValid === undefined || isValid === true) && 
+                    (inputElm.hasAttribute('required') || (fieldValidators.indexOf('notempty') >= 0 ) || ('validateRequired' in inputElm.dataset))
+                ) {
                     utilities.log('Validate not empty or required');
                     var notEmptyOptions = {};
                     if (typeof validatorOptions.notempty !== 'undefined') {
@@ -454,16 +457,45 @@ var mightyFormValidator = (function(){
 					if (isValid === true) {
 						utilities.log('Update dom (only on valid)');
 						validation.updateInput(inputElm, isValid);
+                        return isValid;
 					}
 				} else {
 					utilities.log('Update dom (regular)');
 					validation.updateInput(inputElm, isValid);
+                    return isValid;
 				}
             }
         },
+        
+        validateForm: function(formElm,formFields) {
+            var formValidationStatus = false;
+            
+            if (typeof formElm !== 'undefined' && formElm !== null) {
+                formValidationStatus = true;
+                
+                // Set validation status on entire form
+                formElm.dataset.validationStatus = settings.validationStatus.initial;
+                
+                if (typeof formFields === 'undefined' || formFields === null || formFields.length < 1) {
+                    formFields = formElm.getElementsByClassName( 'mfvField' );
+                }
+            
+                if (formFields !== null && formFields.length > 0) {
+                    for (var i=0; i<formFields.length; i++) {
+                        var thisFieldIsValid = validation.validateInput(formFields[i], null, null, formElm);
+                        
+                        if (thisFieldIsValid !== true) {
+                            formElm.dataset.validationStatus = settings.validationStatus.invalid;
+                            formValidationStatus = false;
+                        }
+                    }
+                }
+            }
+            return formValidationStatus;
+        },
 
         // Enable validation for input field
-        enableInput: function(fieldElm) {
+        enableInput: function(fieldElm,formElm) {
             utilities.log('Function: validation.enableInput()');
 
             if ('validators' in fieldElm.dataset) {
@@ -475,7 +507,7 @@ var mightyFormValidator = (function(){
                 fieldElm.dataset.validationStatus = settings.validationStatus.initial;
 
                 if (fieldValidators.length > 0) {
-                    events.bind(fieldElm, fieldValidators);
+                    events.bind(fieldElm, fieldValidators, formElm);
                 }
             }
         },
@@ -527,15 +559,16 @@ var mightyFormValidator = (function(){
             // Enable form inputs
             if (formFields !== null && formFields.length > 0) {
                 for (var i=0; i<formFields.length; i++) {
-                    validation.enableInput(formFields[i]);
+                    validation.enableInput(formFields[i],formElm);
                 }
 
                 if (initialRun === true) {
                     // Minimal timeout to prevent initialRun before extra (external) validators are added.
                     setTimeout(function() {
-                        for (var j=0; j<formFields.length; j++) {
-                            validation.validateInput(formFields[j]);
-                        }
+                        validation.validateForm(formElm,formFields);
+                        // for (var j=0; j<formFields.length; j++) {
+                        //     validation.validateInput(formFields[j],null, null, formElm);
+                        // }
                     }, settings.initialRunTimeout);
                 }
             }
