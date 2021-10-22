@@ -10,7 +10,7 @@ if (typeof Object.create !== 'function') {
 	};
 }
 
-// Create event listeners with jQuery like namespacing
+// Create event listeners with jQuery like namespacing. Thanks to Leon Zoutewelle!
 var eventsNamespaceBinder = {
     on: function(event, cb, opts) {
         "use strict";
@@ -185,16 +185,16 @@ var mightyFormValidator = (function(){
 			utilities.log(fieldValidators);
 			utilities.log(validatorOptions);
 
-            fieldElm.addEventListener('blur', function() {
+            fieldElm.on('blur.mfvBlur', function() {
                 events.onChange(fieldElm, fieldValidators, validatorOptions);
             }, false);
 
-            fieldElm.addEventListener('change', function() {
+            fieldElm.on('change.mfvChange', function() {
                 events.onChange(fieldElm, fieldValidators, validatorOptions);
             }, false);
 
 			if ( typeof validatorOptions.general !== 'undefined' && validatorOptions.general.keyUp !== 'undefined' && validatorOptions.general.keyUp > 0 && validatorOptions.general.keyUp <= 2 ) {
-				fieldElm.addEventListener('keyup', function(event) {
+				fieldElm.on('keyup.mfvKeyup', function(event) {
 					var isTabKey = false;
 
 					if ( typeof event.key !== 'undefined' && event.key === 'Tab') {
