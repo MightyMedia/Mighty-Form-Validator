@@ -73,7 +73,7 @@ var mightyFormValidator = (function(){
         },
         debug: false,
         validationStatus: {
-            valid: 'valid',
+            valid:  'valid',
             invalid: 'invalid',
             initial: 'initial'
         }
@@ -430,7 +430,7 @@ var mightyFormValidator = (function(){
         },
 
         // Validate input field
-        validateInput: function(inputElm, fieldValidators, triggerEvent, formElm) {
+        validateInput: function(inputElm, fieldValidators, triggerEvent/*, formElm*/) {
             var isValid;
             var isRequired = false;
             var validatorOptions = {};
@@ -505,7 +505,7 @@ var mightyFormValidator = (function(){
 
 				// Check if stuff needs to be updates
 				if (onlyUpdateOnValid === true) {
-					if (isValid === true) {
+					if (isValid !== false) {
 						utilities.log('Update dom (only on valid)');
 						validation.updateInput(inputElm, isValid);
                         return isValid;
@@ -536,8 +536,9 @@ var mightyFormValidator = (function(){
                     
                     for (var i=0; i<formFields.length; i++) {
                         var thisFieldIsValid = validation.validateInput(formFields[i], null, null, formElm);
+                        utilities.log('Field valid (' + i + '): ' + thisFieldIsValid);
                         
-                        if (thisFieldIsValid !== true) {
+                        if (thisFieldIsValid === false) {
                             formElm.dataset.validationStatus = settings.validationStatus.invalid;
                             formValidationStatus = false;
                         }
@@ -611,9 +612,9 @@ var mightyFormValidator = (function(){
             // Check if validation css form classes need to be overwritten
             if (typeof formOptions.formClasses !== 'undefined') {
                 utilities.log(formOptions.formClasses);
-                for (var className in settings.formClasses) {
-                    if (typeof formOptions.formClasses[className] === 'string' && formOptions.formClasses[className].trim().length > 0) {
-                        settings.formClasses[className] = formOptions.formClasses[className].trim();
+                for (var formClassName in settings.formClasses) {
+                    if (typeof formOptions.formClasses[formClassName] === 'string' && formOptions.formClasses[formClassName].trim().length > 0) {
+                        settings.formClasses[formClassName] = formOptions.formClasses[formClassName].trim();
                     }
                 }
             }
@@ -653,12 +654,12 @@ var mightyFormValidator = (function(){
                     var formIsValid = validation.validateForm(formElm,formFields);
                     
                     if (formIsValid === true) {
-                        utilities.log('Form is valid')
+                        utilities.log('Form is valid');
                         formElm.submit();
                     } else if (formIsValid === false) {
                         utilities.log('Form is invalid');
                     } else {
-                        utilities.log('Form is unvalidated')
+                        utilities.log('Form is unvalidated');
                         formElm.submit();
                     }
                     return formIsValid;
@@ -668,16 +669,18 @@ var mightyFormValidator = (function(){
     };
     
     var validateForm = function(selector) {
+        var formIsValid;
+        
         if (typeof selector === 'object') {
             // Check if it's a NodeList or a HTMLCollection (list of elements)
             if (selector instanceof HTMLCollection || selector instanceof NodeList) {
                 // Multiple elements, loop them
                 for (var i = 0; i < selector.length; i++) {
-                    validation.validateForm(selector[i]);
+                    formIsValid = validation.validateForm(selector[i]);
                 }
             } else {
                 // Probably 1 dom object
-                validation.validateForm(selector);
+                formIsValid = validation.validateForm(selector);
             }
         } else if (typeof selector === 'string') {
             var formElm = utilities.getElement(selector);
@@ -685,16 +688,18 @@ var mightyFormValidator = (function(){
             // Check if it's a NodeList or a HTMLCollection (list of elements)
             if (formElm instanceof HTMLCollection || formElm instanceof NodeList) {
                 // Multiple elements, loop them
-                for (var i = 0; i < formElm.length; i++) {
-                    validation.validateForm(formElm[i]);
+                for (var j = 0; j < formElm.length; j++) {
+                    formIsValid = validation.validateForm(formElm[j]);
                 }
             } else {
                 // Probably 1 dom object
-                validation.validateForm(formElm);
+                formIsValid = validation.validateForm(formElm);
             }
         } else {
             // Nope
         }
+        
+        return formIsValid;
     };
 
     var init = function() {

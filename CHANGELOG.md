@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Validation on keyUp event (as already documented)
+- Add input validation on keyUp event (as already documented)
+- Add option for full form validation on submit
 
 ### Changed
 - Optimized some small code sections
