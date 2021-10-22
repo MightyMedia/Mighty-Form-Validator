@@ -38,6 +38,10 @@
         }
 
         &.validation-failed {
+			label {
+				color: #ff0000;
+			}
+
             input {
                 border-color: #ff0000;
             }
