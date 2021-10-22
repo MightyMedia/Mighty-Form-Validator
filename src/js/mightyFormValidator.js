@@ -59,12 +59,17 @@ var mightyFormValidator = (function(){
 
     // Form validation settings
     var settings = {
+        validateSubmission: false,
         initialRun: false,
         initialRunTimeout: 20,
         parentSelector: false,
         classes:  {
             passed: 'validation-passed',
             failed: 'validation-failed'
+        },
+        formClasses:  {
+            passed: 'form-validation-passed',
+            failed: 'form-validation-failed'
         },
         debug: false,
         validationStatus: {
@@ -377,6 +382,30 @@ var mightyFormValidator = (function(){
             }
 
         },
+        
+        // Update input field after validation
+        updateForm: function(formElm, isValid) {
+            utilities.log('Function: validation.updateForm()');
+            
+            if (isValid === true) {
+                utilities.log('Update form valid');
+
+                formElm.dataset.validationStatus = settings.validationStatus.valid;
+                formElm.classList.remove(settings.formClasses.failed);
+                formElm.classList.add(settings.formClasses.passed);
+            } else if (isValid === false) {
+                utilities.log('Update form invalid');
+                
+                formElm.dataset.validationStatus = settings.validationStatus.invalid;
+                formElm.classList.remove(settings.formClasses.passed);
+                formElm.classList.add(settings.formClasses.failed);
+            } else {
+                utilities.log('Update form undefined (not valid and not invalid)');
+                
+                formElm.classList.remove(settings.formClasses.failed);
+                formElm.classList.remove(settings.formClasses.passed);
+            }
+        },
 
         // Validate input field
         validateInput: function(inputElm, fieldValidators, triggerEvent, formElm) {
@@ -468,11 +497,11 @@ var mightyFormValidator = (function(){
         },
         
         validateForm: function(formElm,formFields) {
-            var formValidationStatus = false;
+            var formValidationStatus;
+            
+            utilities.log('Function: validation.validateForm()');
             
             if (typeof formElm !== 'undefined' && formElm !== null) {
-                formValidationStatus = true;
-                
                 // Set validation status on entire form
                 formElm.dataset.validationStatus = settings.validationStatus.initial;
                 
@@ -481,6 +510,8 @@ var mightyFormValidator = (function(){
                 }
             
                 if (formFields !== null && formFields.length > 0) {
+                    formValidationStatus = true;
+                    
                     for (var i=0; i<formFields.length; i++) {
                         var thisFieldIsValid = validation.validateInput(formFields[i], null, null, formElm);
                         
@@ -491,6 +522,9 @@ var mightyFormValidator = (function(){
                     }
                 }
             }
+            
+            validation.updateForm(formElm, formValidationStatus);
+            
             return formValidationStatus;
         },
 
@@ -518,6 +552,7 @@ var mightyFormValidator = (function(){
 
             var formFields = formElm.getElementsByClassName( 'mfvField' );
             var initialRun = false;
+            var validateSubmission = false;
             var formOptions = {};
 
             if ('validatorOptions' in formElm.dataset && formElm.dataset.validatorOptions.trim() !== '') {
@@ -536,12 +571,27 @@ var mightyFormValidator = (function(){
                 initialRun = true;
             }
 
+            // Should the validation run on the complete form on submit
+            if (typeof formOptions.validateSubmission !== 'undefined' && formOptions.validateSubmission === true) {
+                validateSubmission = true;
+            }
+
             // Check if validation css classes need to be overwritten
             if (typeof formOptions.classes !== 'undefined') {
                 utilities.log(formOptions.classes);
                 for (var className in settings.classes) {
                     if (typeof formOptions.classes[className] === 'string' && formOptions.classes[className].trim().length > 0) {
                         settings.classes[className] = formOptions.classes[className].trim();
+                    }
+                }
+            }
+
+            // Check if validation css form classes need to be overwritten
+            if (typeof formOptions.formClasses !== 'undefined') {
+                utilities.log(formOptions.formClasses);
+                for (var className in settings.formClasses) {
+                    if (typeof formOptions.formClasses[className] === 'string' && formOptions.formClasses[className].trim().length > 0) {
+                        settings.formClasses[className] = formOptions.formClasses[className].trim();
                     }
                 }
             }
@@ -571,6 +621,26 @@ var mightyFormValidator = (function(){
                         // }
                     }, settings.initialRunTimeout);
                 }
+            }
+            
+            // Handle formsubmission
+            if (validateSubmission === true) {
+                formElm.on('submit.mfvSubmit', function(event) {
+                    event.preventDefault();
+                    utilities.log('Enable form validation on submit');
+                    var formIsValid = validation.validateForm(formElm,formFields);
+                    
+                    if (formIsValid === true) {
+                        utilities.log('Form is valid')
+                        formElm.submit();
+                    } else if (formIsValid === false) {
+                        utilities.log('Form is invalid');
+                    } else {
+                        utilities.log('Form is unvalidated')
+                        formElm.submit();
+                    }
+                    return formIsValid;
+                });
             }
         }
     };
