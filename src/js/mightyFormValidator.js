@@ -2,12 +2,12 @@
 
 // Utility for creating objects in older browsers
 if (typeof Object.create !== 'function') {
-	Object.create = function(obj) {
-    	"use strict";
-		function F() {}
-		F.prototype = obj;
-		return new F();
-	};
+    Object.create = function(obj) {
+        "use strict";
+        function F() {}
+        F.prototype = obj;
+        return new F();
+    };
 }
 
 // Create event listeners with jQuery like namespacing. Thanks to Leon Zoutewelle!
@@ -168,34 +168,34 @@ var mightyFormValidator = (function(){
 
                     var isValid,
                         value = self.value,
-						type  = self.type;
-					
-					// Check for checkbox!
-					utilities.log('Input type: ' + type);
+                        type  = self.type;
+                    
+                    // Check for checkbox!
+                    utilities.log('Input type: ' + type);
 
-					if ( ['checkbox','radio'].includes(type) ) {
-						
-						if ( type === 'checkbox' ) {
-							utilities.log('Checkbox validation');
+                    if ( ['checkbox','radio'].includes(type) ) {
+                        
+                        if ( type === 'checkbox' ) {
+                            utilities.log('Checkbox validation');
 
-							if (self.checked) {
-								isValid = true;
-							} else {
-								isValid = false;
-							}
-						} else {
-							utilities.log('Radio validation not yet available');
-						}
+                            if (self.checked) {
+                                isValid = true;
+                            } else {
+                                isValid = false;
+                            }
+                        } else {
+                            utilities.log('Radio validation not yet available');
+                        }
 
-					} else {
-						utilities.log('Regular validation');
+                    } else {
+                        utilities.log('Regular validation');
 
-						if (value.trim().length > 0) {
-							isValid = true;
-						} else {
-							isValid = false;
-						}
-					}
+                        if (value.trim().length > 0) {
+                            isValid = true;
+                        } else {
+                            isValid = false;
+                        }
+                    }
 
                     return isValid;
                 }
@@ -207,36 +207,39 @@ var mightyFormValidator = (function(){
     var events = {
         bind: function(fieldElm, fieldValidators, formElm) {
             utilities.log('Function: events.bind for field');
-			var validatorOptions = validation.getValidatorOptions(fieldElm);
-			fieldValidators = (typeof fieldValidators === 'undefined'  || fieldValidators === null) ? [] : fieldValidators;
-			utilities.log(fieldValidators);
-			utilities.log(validatorOptions);
+            var validatorOptions = validation.getValidatorOptions(fieldElm);
+            fieldValidators = (typeof fieldValidators === 'undefined'  || fieldValidators === null) ? [] : fieldValidators;
+            utilities.log(fieldValidators);
+            utilities.log(validatorOptions);
 
+            fieldElm.off('blur.mfvBlur');
             fieldElm.on('blur.mfvBlur', function(event) {
                 events.onChange(fieldElm, fieldValidators, validatorOptions, event, formElm);
             }, false);
-
+            
+            fieldElm.off('change.mfvChange');
             fieldElm.on('change.mfvChange', function(event) {
                 events.onChange(fieldElm, fieldValidators, validatorOptions, event, formElm);
             }, false);
 
-			if ( typeof validatorOptions.general !== 'undefined' && validatorOptions.general.keyUp !== 'undefined' && validatorOptions.general.keyUp > 0 && validatorOptions.general.keyUp <= 2 ) {
-				fieldElm.on('keyup.mfvKeyup', function(event) {
-					var isTabKey = false;
+            if ( typeof validatorOptions.general !== 'undefined' && validatorOptions.general.keyUp !== 'undefined' && validatorOptions.general.keyUp > 0 && validatorOptions.general.keyUp <= 2 ) {
+                fieldElm.off('keyup.mfvKeyup');
+                fieldElm.on('keyup.mfvKeyup', function(event) {
+                    var isTabKey = false;
 
-					if ( typeof event.key !== 'undefined' && event.key === 'Tab') {
-						isTabKey = true;
-					} else if (typeof event.code !== 'undefined' && event.code ==='Tab' ) {
-						isTabKey = true;
-					} else if (typeof event.keyCode !== 'undefined' && event.keyCode === 9) {
-						isTabKey = true;
-					}
+                    if ( typeof event.key !== 'undefined' && event.key === 'Tab') {
+                        isTabKey = true;
+                    } else if (typeof event.code !== 'undefined' && event.code ==='Tab' ) {
+                        isTabKey = true;
+                    } else if (typeof event.keyCode !== 'undefined' && event.keyCode === 9) {
+                        isTabKey = true;
+                    }
 
-					if (event.type === 'keyup' && isTabKey !== true) {
-						events.onKeyUp(fieldElm, fieldValidators, validatorOptions, event, formElm);
-					}
-				}, false);
-			}
+                    if (event.type === 'keyup' && isTabKey !== true) {
+                        events.onKeyUp(fieldElm, fieldValidators, validatorOptions, event, formElm);
+                    }
+                }, false);
+            }
 
             if (settings.initialRun === true) {
                 validation.validateInput(fieldElm, fieldValidators, null, formElm);
@@ -245,7 +248,7 @@ var mightyFormValidator = (function(){
 
         onChange: function(fieldElm, fieldValidators, validatorOptions, event, formElm) {
             utilities.log('Function: events.onchange');
-			validatorOptions = (typeof validatorOptions === 'undefined') ? validation.getValidatorOptions(fieldElm) : validatorOptions;
+            validatorOptions = (typeof validatorOptions === 'undefined') ? validation.getValidatorOptions(fieldElm) : validatorOptions;
             validation.validateInput(fieldElm, fieldValidators, event, formElm);
 
             // Check if there is an other field that should have it's validation triggered
@@ -266,16 +269,16 @@ var mightyFormValidator = (function(){
             }
         },
 
-		onKeyUp: function(fieldElm, fieldValidators, validatorOptions, event, formElm) {
+        onKeyUp: function(fieldElm, fieldValidators, validatorOptions, event, formElm) {
             utilities.log('Function: events.onkeyup');
-			validatorOptions = (typeof validatorOptions === 'undefined') ? validation.getValidatorOptions(fieldElm) : validatorOptions;
-			utilities.log(validatorOptions);
+            validatorOptions = (typeof validatorOptions === 'undefined') ? validation.getValidatorOptions(fieldElm) : validatorOptions;
+            utilities.log(validatorOptions);
 
-			if ( typeof validatorOptions.general !== 'undefined' && validatorOptions.general.keyUp !== 'undefined' && validatorOptions.general.keyUp > 0 && validatorOptions.general.keyUp <= 2 ) {
-				validation.validateInput(fieldElm, fieldValidators, event, formElm);
-			}
+            if ( typeof validatorOptions.general !== 'undefined' && validatorOptions.general.keyUp !== 'undefined' && validatorOptions.general.keyUp > 0 && validatorOptions.general.keyUp <= 2 ) {
+                validation.validateInput(fieldElm, fieldValidators, event, formElm);
+            }
 
-		}
+        }
     };
 
     // Validation
@@ -434,8 +437,8 @@ var mightyFormValidator = (function(){
             var isValid;
             var isRequired = false;
             var validatorOptions = {};
-			var onlyUpdateOnValid = false;
-			triggerEvent = (typeof triggerEvent === 'undefined') ? null : triggerEvent;
+            var onlyUpdateOnValid = false;
+            triggerEvent = (typeof triggerEvent === 'undefined') ? null : triggerEvent;
 
             utilities.log('Function: validation.validateInput()');
 
@@ -446,16 +449,16 @@ var mightyFormValidator = (function(){
 
             validatorOptions = validation.getValidatorOptions(inputElm);
 
-			if (
-				triggerEvent !== null &&
-				typeof triggerEvent.type !== 'undefined' &&
-				triggerEvent.type === 'keyup' &&
-				typeof validatorOptions.general !== 'undefined' && 
-				validatorOptions.general.keyUp !== 'undefined' && 
-				validatorOptions.general.keyUp === 1
-			) {
-				onlyUpdateOnValid = true;
-			}
+            if (
+                triggerEvent !== null &&
+                typeof triggerEvent.type !== 'undefined' &&
+                triggerEvent.type === 'keyup' &&
+                typeof validatorOptions.general !== 'undefined' && 
+                validatorOptions.general.keyUp !== 'undefined' && 
+                validatorOptions.general.keyUp === 1
+            ) {
+                onlyUpdateOnValid = true;
+            }
 
             // Only validate form fields that can be changed by the user
             if ( !inputElm.hasAttribute('hidden') && !inputElm.hasAttribute('disabled') ) {
@@ -503,18 +506,18 @@ var mightyFormValidator = (function(){
                     }
                 }
 
-				// Check if stuff needs to be updates
-				if (onlyUpdateOnValid === true) {
-					if (isValid !== false) {
-						utilities.log('Update dom (only on valid)');
-						validation.updateInput(inputElm, isValid);
+                // Check if stuff needs to be updates
+                if (onlyUpdateOnValid === true) {
+                    if (isValid !== false) {
+                        utilities.log('Update dom (only on valid)');
+                        validation.updateInput(inputElm, isValid);
                         return isValid;
-					}
-				} else {
-					utilities.log('Update dom (regular)');
-					validation.updateInput(inputElm, isValid);
+                    }
+                } else {
+                    utilities.log('Update dom (regular)');
+                    validation.updateInput(inputElm, isValid);
                     return isValid;
-				}
+                }
             }
         },
         
@@ -648,6 +651,7 @@ var mightyFormValidator = (function(){
             
             // Handle formsubmission
             if (validateSubmission === true) {
+                formElm.off('submit.mfvSubmit');
                 formElm.on('submit.mfvSubmit', function(event) {
                     event.preventDefault();
                     utilities.log('Enable form validation on submit');
