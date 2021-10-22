@@ -68,8 +68,8 @@ var mightyFormValidator = (function(){
             failed: 'validation-failed'
         },
         formClasses:  {
-            passed: 'form-validation-passed',
-            failed: 'form-validation-failed'
+            passed: 'validation-passed',
+            failed: 'validation-failed'
         },
         debug: false,
         validationStatus: {
@@ -111,6 +111,28 @@ var mightyFormValidator = (function(){
             }
 
             return el;
+        },
+        
+        getElement: function(search) {
+            var elm;
+            switch (search.charAt(0)) {
+                case '#': // Find by ID
+                    search = search.substr(1);
+                    elm = document.getElementById(search);
+                    break;
+
+                case '.': // Find by classname
+                    search = search.substr(1);
+                    elm = document.getElementsByClassName(search);
+                    break;
+
+                default: // Find by tagname
+                    search = search.toUpperCase();
+                    elm = document.getElementsByTagName(search);
+                    break;
+            }
+
+            return elm;
         }
     };
 
@@ -644,6 +666,36 @@ var mightyFormValidator = (function(){
             }
         }
     };
+    
+    var validateForm = function(selector) {
+        if (typeof selector === 'object') {
+            // Check if it's a NodeList or a HTMLCollection (list of elements)
+            if (selector instanceof HTMLCollection || selector instanceof NodeList) {
+                // Multiple elements, loop them
+                for (var i = 0; i < selector.length; i++) {
+                    validation.validateForm(selector[i]);
+                }
+            } else {
+                // Probably 1 dom object
+                validation.validateForm(selector);
+            }
+        } else if (typeof selector === 'string') {
+            var formElm = utilities.getElement(selector);
+            
+            // Check if it's a NodeList or a HTMLCollection (list of elements)
+            if (formElm instanceof HTMLCollection || formElm instanceof NodeList) {
+                // Multiple elements, loop them
+                for (var i = 0; i < formElm.length; i++) {
+                    validation.validateForm(formElm[i]);
+                }
+            } else {
+                // Probably 1 dom object
+                validation.validateForm(formElm);
+            }
+        } else {
+            // Nope
+        }
+    };
 
     var init = function() {
         utilities.log('Function: init');
@@ -664,6 +716,7 @@ var mightyFormValidator = (function(){
         init        : init,
         validators  : validators,
         validation  : validation,
+        validateForm: validateForm,
         utilities   : utilities
     };
 
