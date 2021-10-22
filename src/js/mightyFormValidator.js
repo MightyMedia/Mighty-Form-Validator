@@ -66,7 +66,12 @@ var mightyFormValidator = (function(){
             passed: 'validation-passed',
             failed: 'validation-failed'
         },
-        debug: false
+        debug: false,
+        validationStatus: {
+            valid: 'valid',
+            invalid: 'invalid',
+            initial: 'initial'
+        }
     };
 
     // contains all xhr handles
@@ -325,11 +330,12 @@ var mightyFormValidator = (function(){
                 }
             }
 
-            var errorElm    = parentElm.querySelector('.message-error');
+            var errorElm = parentElm.querySelector('.message-error');
 
             if (isValid === true) {
                 utilities.log('Update valid');
 
+                inputElm.dataset.validationStatus = settings.validationStatus.valid;
                 parentElm.classList.remove(settings.classes.failed);
                 parentElm.classList.add(settings.classes.passed);
 
@@ -338,11 +344,15 @@ var mightyFormValidator = (function(){
                 }
             } else if (isValid === false) {
                 utilities.log('Update invalid');
+                
+                inputElm.dataset.validationStatus = settings.validationStatus.invalid;
                 parentElm.classList.remove(settings.classes.passed);
                 parentElm.classList.add(settings.classes.failed);
                 errorText = validation.getErrorMessage(inputElm);
             } else {
                 utilities.log('Update undefined (not valid and not invalid)');
+                
+                inputElm.dataset.validationStatus = settings.validationStatus.initial;
                 parentElm.classList.remove(settings.classes.failed);
                 parentElm.classList.remove(settings.classes.passed);
 
@@ -460,6 +470,9 @@ var mightyFormValidator = (function(){
                 var fieldValidators = validation.getValidators(fieldElm);
 
                 utilities.log(fieldValidators);
+                
+                // Set validation status
+                fieldElm.dataset.validationStatus = settings.validationStatus.initial;
 
                 if (fieldValidators.length > 0) {
                     events.bind(fieldElm, fieldValidators);
@@ -507,7 +520,11 @@ var mightyFormValidator = (function(){
             }
 
             utilities.log(settings);
+            
+            // Set validation status on entire form
+            formElm.dataset.validationStatus = settings.validationStatus.initial;
 
+            // Enable form inputs
             if (formFields !== null && formFields.length > 0) {
                 for (var i=0; i<formFields.length; i++) {
                     validation.enableInput(formFields[i]);
