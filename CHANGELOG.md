@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-## [Unreleased]
+## [0.3.0] - 2021-10-29
 
 ### Added
 - Add input validation on keyUp event (as already documented)
@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Optimized some small code sections
 
 
-## [0.2.3] - 2010-10-18
+## [0.2.3] - 2021-10-18
 
 ### Changed
 - Make `validation()` also publicly available
