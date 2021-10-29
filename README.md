@@ -38,7 +38,7 @@ Options for the entire form can be set by adding a data-attribute `data-validato
 
 __Example:__
 ```HTML
-<form type="text" name="input1" data-validator-options='{"initialRun": true, "debug": true, "classes": {"passed": "is_valid", "failed": "is_error"}, "parentSelector": "form__group"}'>
+<form type="text" name="input1" data-validator-options='{"initialRun": true, "debug": true, "classes": {"passed": "is_valid", "failed": "is_error"}, "formClasses": {"passed": "form_is_valid", "failed": "form_is_failed"}, "parentSelector": "form__group"}'>
 ...
 </form>
 ```
@@ -48,7 +48,9 @@ The following options are available:
 | Option | Description |
 | ----- | ------------ |
 | __initialRun__ | Validate the form on page-load. |
-| __classes__ | Set custom CSS classes to add to a form when it is valid or invalid is. Default are `validation-passed` and `validation-failed`. |
+| __validateSubmission__ | Validate the form on submit and prevent submit when invalid. |
+| __classes__ | Set custom CSS classes to add to a form input (parent) when it is valid or invalid is. Default are `validation-passed` and `validation-failed`. |
+| __formClasses__ | Set custom CSS classes to add to the form when the full form is validated valid or invalid. Default are `validation-passed` and `validation-failed`. |
 | __parentSelector__ | By default the validation classes (valid or invalid) are placed on the direct parent of the validated form field. With this option you can supply a selector to apply the classes to the closest parent matching the selector. |
 | __debug__ | Enable debug-mode. When enabled, the console.log() is filled with debug info. |
 
@@ -77,7 +79,7 @@ Non-validator-specific form field options:
 | Option | Description |
 | ----- | ------------ |
 | __validatorTrigger__ | The ID of the field that gets revalidated when the current field changes. |
-| _keyUp_ | Trigger field validation on the key up event, possible values: `0` (no, default), `1` (only show if field is valid), `2` (show if field is valid or invalid). |
+| __keyUp__ | Trigger field validation on the key up event, possible values: `0` (no, default), `1` (only show if field is valid), `2` (show if field is valid or invalid). |
 
 ---
 
