@@ -1,6 +1,6 @@
 # Mighty Form Validator
 
-Generic client-side form validator written in JavaScript with focus on being:
+Mighty Form Validator is a generic client-side form validator written in JavaScript with focus on being:
 
 * Lightweight
 * Extendable
@@ -13,12 +13,12 @@ For changes, see changelog: [CHANGELOG.md](CHANGELOG.md)
 
 ## Requirements
 
-- Nuthin', it's all plain ol' JavaScript
+- Nuthin', it's all plain ol' (Vanilla) JavaScript
 
 
 ## Installation
 
-1. Include `dist/mightyFormValidator.min.js` (_Validator Engine_), or include `dist/mightyFormValidator.full.js` to include all current available validators with the _Validator Engine_ in 1 file and skip step 2.
+1. Include `dist/mightyFormValidator.min.js` (_Validator Engine_), or include `dist/mightyFormValidator.full.js` to include all current available validators with the _Validator Engine_ in one file and skip step 2.
 2. Include the validators of your choosing from `src/js/validators`
 3. Have fun!
 
@@ -48,8 +48,8 @@ The following options are available:
 | Option | Description |
 | ----- | ------------ |
 | __initialRun__ | Validate the form on page-load. |
-| __validateSubmission__ | Validate the form on submit and prevent submit when invalid. |
-| __classes__ | Set custom CSS classes to add to a form input (parent) when it is valid or invalid is. Default are `validation-passed` and `validation-failed`. |
+| __validateSubmission__ | Validate the form on submit and prevent submit when invalid fields are found. |
+| __classes__ | Set custom CSS classes to add to a form input (parent) when it is valid or invalid. Default are `validation-passed` and `validation-failed`. |
 | __formClasses__ | Set custom CSS classes to add to the form when the full form is validated valid or invalid. Default are `validation-passed` and `validation-failed`. |
 | __parentSelector__ | By default the validation classes (valid or invalid) are placed on the direct parent of the validated form field. With this option you can supply a selector to apply the classes to the closest parent matching the selector. |
 | __debug__ | Enable debug-mode. When enabled, the console.log() is filled with debug info. |
