@@ -735,5 +735,5 @@ var mightyFormValidator = (function(){
 if (document.readyState === "complete" || (document.readyState !== "loading" && !document.documentElement.doScroll)) {
     mightyFormValidator.init();
 } else {
-    document.addEventListener("DOMContentLoaded", mightyFormValidator.init());
+    document.addEventListener("DOMContentLoaded", mightyFormValidator.init);
 }

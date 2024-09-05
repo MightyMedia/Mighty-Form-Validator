@@ -6,7 +6,7 @@ Mighty Form Validator is a generic client-side form validator written in JavaScr
 * Extendable
 * Easy-to-use
 
-Version: 0.3.0
+Version: 0.3.1
 
 For changes, see changelog: [CHANGELOG.md](CHANGELOG.md)
 

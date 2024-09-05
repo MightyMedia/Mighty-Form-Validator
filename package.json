@@ -1,6 +1,6 @@
 {
     "name": "mighty-form-validator",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "license": "MIT",
     "private": false,
     "scripts": {},
@@ -19,6 +19,5 @@
         "jshint-stylish": "^2.2.1",
         "stream-combiner2": "^1.1.1"
     },
-    "dependencies": {
-    }
+    "dependencies": {}
 }
